@@ -3,6 +3,7 @@
 {% block content %}
   <h1>Wash Your Bowl</h1>
   <p>Helping you decide what to do next!</p>
-  <h2>Dynamic content</h2>
+  <h2>{{ next_task.text }} </h2>
+  <h3>({{ next_task.project.name }})</h3>
   <p>You have completed {{ num_done }} of {{ num_tasks }} tasks!</p>
 {% endblock %}

@@ -1,0 +1,13 @@
+{% extends "tasks/base.html" %}
+
+{% block content %}
+  <h1>{{ project.name }}</h1> 
+  <ul>
+    <uh>Tasks</uh>
+    {% for task in project.task_set.all %}
+      <li>
+        <a href="{{ task.get_absolute_url }}">{{ task.text }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

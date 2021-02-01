@@ -1,11 +1,17 @@
+import datetime
+
 from django.conf import settings
 from django.db import models
-import datetime
+from django.urls import reverse
+
 
 
 class Project(models.Model):
     """High-level group of tasks."""
     name = models.CharField(max_length=200)
+
+    def get_absolute_url(self):
+        return reverse("project-detail", args=[str(self.pk)])
 
     def __str__(self):
         return self.name
@@ -14,6 +20,9 @@ class Project(models.Model):
 class Category(models.Model):
     """Category for organizing tasks."""
     name = models.CharField(max_length=200)
+
+    def get_absolute_url(self):
+        return reverse("category-detail", args=[str(self.pk)])
 
     def __str__(self):
         return self.name
@@ -53,12 +62,18 @@ class Task(models.Model):
             self.finished_date = datetime.date.today()
             self._done = True
 
-            # unblock any dependents
-            for dependent in self.dependents.all():
-                dependent.blockers.remove(self)
-                dependent.save()
+            try:
+                # unblock any dependents
+                for dependent in self.dependents.all():
+                    dependent.blockers.remove(self)
+                    dependent.save()
+            except ValueError:
+                pass
 
         super(Task, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse("task-detail", args=[str(self.pk)])
 
     def __str__(self):
         return self.text

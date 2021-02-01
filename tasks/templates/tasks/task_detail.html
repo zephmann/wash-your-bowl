@@ -1,0 +1,15 @@
+{% extends "tasks/base.html" %}
+
+{% block content %}
+  <h1>{{ task.text }}</h1> 
+  <h2>Project</h2>
+  <p><a href="{{ task.project.get_absolute_url }}">{{ task.project.name }}</a></p>
+  <ul>
+    <uh>Categories</uh>
+    {% for category in task.categories.all %}
+      <li>
+        <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

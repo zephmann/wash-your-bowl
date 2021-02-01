@@ -6,7 +6,7 @@
   <ul>
     {% for task in task_list %}
       <li>
-        <a href="#">{{ task.text }}</a>
+        <a href="{{ task.get_absolute_url }}">{{ task.text }}</a> ({{ task.project.name }})</a>
       </li>
     {% endfor %}
   </ul>
