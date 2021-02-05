@@ -1,16 +1,57 @@
 {% extends "tasks/base.html" %}
 
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'tasks/css/styles.css' %}">
+
 {% block content %}
   <h1>Task List</h1>
-  {% if task_list %}
-  <ul>
-    {% for task in task_list %}
-      <li>
-        <a href="{{ task.get_absolute_url }}">{{ task.text }}</a> ({{ task.project.name }})</a>
-      </li>
-    {% endfor %}
-  </ul>
+
+  {% if active_tasks or blocked_tasks or done_tasks %}
+
+    {% if active_tasks %}
+      <div id="active-tasks">
+        <ul>
+        {% for task in active_tasks %}
+          <li>
+            <a href="{{ task.get_absolute_url }}">{{ task.text }}</a> 
+            <a href="{{ task.project.get_absolute_url }}">({{ task.project.name }})</a>
+          </li>
+        {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    {% if blocked_tasks %}
+      <div id="blocked-tasks">
+        <ul>
+        {% for task in blocked_tasks %}
+          <li>
+            <a href="{{ task.get_absolute_url }}">{{ task.text }}</a> 
+            <a href="{{ task.project.get_absolute_url }}">({{ task.project.name }})</a>
+          </li>
+        {% endfor %}
+        </ul>
+      </div>
+    {% endif %} 
+
+    {% if done_tasks %}
+      <div id="done-tasks">
+        <ul>
+        {% for task in done_tasks %}
+          <li>
+            <a href="{{ task.get_absolute_url }}">{{ task.text }}</a>
+            <a href="{{ task.project.get_absolute_url }}">({{ task.project.name }})</a>
+          </li>
+        {% endfor %}
+        </ul>
+      </div>
+    {% endif %} 
+
   {% else %}
-    <p>You have no tasks.</p>
-  {% endif %} 
+
+    <p>No tasks</p>
+
+  {% endif %}
+
 {% endblock %}

@@ -27,6 +27,26 @@ def index(request):
 class TaskListView(generic.ListView):
     model = Task
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        task_list = context.pop("task_list")
+
+        context["active_tasks"] = []
+        context["blocked_tasks"] = []
+        context["done_tasks"] = []
+
+        # TODO faster to do 3 queries?
+        for task in task_list:
+            if task.done:
+                context["done_tasks"].append(task)
+            elif task.blocked:
+                context["blocked_tasks"].append(task)
+            else:
+                context["active_tasks"].append(task)
+        
+        return context
+
 
 class TaskDetailView(generic.DetailView):
     model = Task

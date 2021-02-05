@@ -3,3 +3,36 @@
     padding: 0;
     list-style: none;
 }
+
+#active-tasks {
+    font-weight: bold;
+    color: green;
+}
+#active-tasks a:link {
+    color: green;
+}
+#active-tasks a:visited {
+    color: darkgreen;
+}
+
+#blocked-tasks {
+    font-style: italic;
+    color: gray;
+}
+#blocked-tasks a:link {
+    color: gray;
+}
+#blocked-tasks a:visited {
+    color: darkgray;
+}
+
+#done-tasks {
+    text-decoration: line-through;
+    color: black;
+}
+#done-tasks a:link {
+    color: black;
+}
+#done-tasks a:visited {
+    color: black;
+}
